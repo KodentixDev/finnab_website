@@ -91,9 +91,14 @@ class NewsletterSubscriberAdmin(admin.ModelAdmin):
 
 @admin.register(SEOSettings)
 class SEOSettingsAdmin(TabbedTranslationAdmin):
-    list_display = ('meta_title', 'robots', 'is_active')
+    list_display = ('__str__', 'auto_generated', 'robots', 'is_active', 'updated_at')
     list_editable = ('is_active',)
+    list_filter = ('auto_generated', 'is_active', 'content_type')
+    readonly_fields = ('content_type', 'object_id', 'auto_generated', 'updated_at')
     fieldsets = (
+        ('Hansı Obyektə Aid', {
+            'fields': ('content_type', 'object_id', 'page_identifier', 'auto_generated')
+        }),
         ('Meta Məlumatlar', {
             'fields': ('meta_title', 'meta_description', 'meta_keywords')
         }),
@@ -110,6 +115,6 @@ class SEOSettingsAdmin(TabbedTranslationAdmin):
             'fields': ('schema_organization_name', 'schema_phone', 'schema_email', 'schema_address')
         }),
         ('Status', {
-            'fields': ('is_active',)
+            'fields': ('is_active', 'updated_at')
         }),
     )

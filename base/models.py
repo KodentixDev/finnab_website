@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
 
 
 class HeroSection(models.Model):
@@ -205,12 +207,26 @@ class NewsletterSubscriber(models.Model):
 
 
 class SEOSettings(models.Model):
-    # Ana məlumatlar
-    meta_title = models.CharField(max_length=70, help_text='Maksimum 70 simvol')
-    meta_description = models.TextField(max_length=160, help_text='Maksimum 160 simvol')
+    # Hansı modelə aid olduğunu göstərir
+    content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE,
+        null=True, blank=True
+    )
+    object_id = models.PositiveIntegerField(null=True, blank=True)
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    # Saytın ümumi SEO-su üçün (heç bir modelə bağlı olmayan)
+    page_identifier = models.CharField(
+        max_length=50, blank=True,
+        help_text='Ümumi sayt SEO-su üçün: "global" yazın'
+    )
+
+    # Meta məlumatlar (3 dildə — modeltranslation ilə)
+    meta_title = models.CharField(max_length=70, blank=True, help_text='Maksimum 70 simvol')
+    meta_description = models.TextField(max_length=160, blank=True, help_text='Maksimum 160 simvol')
     meta_keywords = models.CharField(max_length=255, blank=True, help_text='Vergüllə ayrılmış açar sözlər')
 
-    # Open Graph (Facebook, LinkedIn)
+    # Open Graph
     og_title = models.CharField(max_length=70, blank=True)
     og_description = models.TextField(max_length=200, blank=True)
     og_image = models.ImageField(upload_to='seo/', blank=True, null=True, help_text='1200x630 px tövsiyə olunur')
@@ -220,8 +236,8 @@ class SEOSettings(models.Model):
     twitter_description = models.TextField(max_length=200, blank=True)
     twitter_card = models.CharField(max_length=20, default='summary_large_image')
 
-    # Canonical & Robot
-    canonical_url = models.URLField(blank=True, help_text='Məs: https://finnab.az')
+    # Texniki
+    canonical_url = models.URLField(blank=True)
     robots = models.CharField(max_length=50, default='index, follow')
 
     # Schema.org
@@ -231,10 +247,25 @@ class SEOSettings(models.Model):
     schema_address = models.CharField(max_length=300, blank=True)
 
     is_active = models.BooleanField(default=True)
+    auto_generated = models.BooleanField(default=False, help_text='Signal tərəfindən avtomatik yaradılıb')
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = 'SEO Ayarları'
+        verbose_name = 'SEO Ayarı'
         verbose_name_plural = 'SEO Ayarları'
 
     def __str__(self):
-        return self.meta_title or 'SEO Ayarları'
+        if self.page_identifier:
+            return f'SEO: {self.page_identifier}'
+        if self.content_type and self.object_id:
+            return f'SEO: {self.content_type.model} #{self.object_id}'
+        return 'SEO Ayarı'
+
+    @classmethod
+    def get_for_object(cls, obj):
+        ct = ContentType.objects.get_for_model(obj)
+        return cls.objects.filter(content_type=ct, object_id=obj.pk, is_active=True).first()
+
+    @classmethod
+    def get_global(cls):
+        return cls.objects.filter(page_identifier='global', is_active=True).first()

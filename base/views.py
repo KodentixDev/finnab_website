@@ -27,7 +27,28 @@ def index(request):
     services = Service.objects.filter(is_active=True)
     faqs = FAQ.objects.filter(is_active=True)
     contact_info = ContactInfo.objects.filter(is_active=True).first()
-    seo = SEOSettings.objects.filter(is_active=True).first()
+
+    # SEO: ən önəmli obyektdən götür (hero → about → global)
+    seo = None
+    if hero:
+        seo = SEOSettings.get_for_object(hero)
+    if not seo and about:
+        seo = SEOSettings.get_for_object(about)
+    if not seo:
+        seo = SEOSettings.get_global()
+
+    # Bütün SEO məlumatlarını yığ (services, faq üçün schema)
+    service_seos = []
+    for service in services:
+        s = SEOSettings.get_for_object(service)
+        if s:
+            service_seos.append(s)
+
+    faq_seos = []
+    for faq_item in faqs:
+        f = SEOSettings.get_for_object(faq_item)
+        if f:
+            faq_seos.append(f)
 
     context = {
         'hero': hero,
@@ -39,6 +60,8 @@ def index(request):
         'faqs': faqs,
         'contact_info': contact_info,
         'seo': seo,
+        'service_seos': service_seos,
+        'faq_seos': faq_seos,
         'LANGUAGE_CODE': current_lang,
     }
     return render(request, 'index.html', context)

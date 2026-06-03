@@ -41,17 +41,64 @@
     {% endif %}
 
     <!-- Schema.org Organization -->
+    <!-- Schema.org: Organization -->
     {% if seo and seo.schema_organization_name %}
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "Organization",
+        "@type": "AccountingService",
         "name": "{{ seo.schema_organization_name }}",
         {% if seo.canonical_url %}"url": "{{ seo.canonical_url }}",{% endif %}
         {% if seo.schema_phone %}"telephone": "{{ seo.schema_phone }}",{% endif %}
         {% if seo.schema_email %}"email": "{{ seo.schema_email }}",{% endif %}
         {% if seo.schema_address %}"address": {"@type": "PostalAddress", "streetAddress": "{{ seo.schema_address }}"},{% endif %}
-        {% if seo.og_image %}"logo": "{{ request.scheme }}://{{ request.get_host }}{{ seo.og_image.url }}"{% endif %}
+        {% if seo.og_image %}"logo": "{{ request.scheme }}://{{ request.get_host }}{{ seo.og_image.url }}",{% endif %}
+        "priceRange": "$$"
+    }
+    </script>
+    {% endif %}
+
+    <!-- Schema.org: Services -->
+    {% if service_seos %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": [
+            {% for s in service_seos %}
+            {
+                "@type": "ListItem",
+                "position": {{ forloop.counter }},
+                "item": {
+                    "@type": "Service",
+                    "name": "{{ s.meta_title }}",
+                    "description": "{{ s.meta_description }}"
+                }
+            }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ]
+    }
+    </script>
+    {% endif %}
+
+    <!-- Schema.org: FAQ -->
+    {% if faq_seos %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {% for f in faq_seos %}
+            {
+                "@type": "Question",
+                "name": "{{ f.meta_title }}",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "{{ f.meta_description }}"
+                }
+            }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ]
     }
     </script>
     {% endif %}

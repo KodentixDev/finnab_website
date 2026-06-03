@@ -63,3 +63,4 @@ class SEOSettingsTranslation(TranslationOptions):
         'og_title', 'og_description',
         'twitter_title', 'twitter_description',
     )
+    required_languages = ()
