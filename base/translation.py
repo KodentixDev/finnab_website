@@ -2,7 +2,7 @@ from modeltranslation.translator import register, TranslationOptions
 from .models import (
     HeroSection, AboutSection, AboutFeature,
     WhyChooseUs, WhyChooseItem, WhoWeHelp,
-    WhoWeHelpItem, Service, FAQ, StatCounter
+    WhoWeHelpItem, Service, FAQ, StatCounter, SEOSettings
 )
 
 
@@ -54,3 +54,12 @@ class FAQTranslation(TranslationOptions):
 @register(StatCounter)
 class StatCounterTranslation(TranslationOptions):
     fields = ('label',)
+
+
+@register(SEOSettings)
+class SEOSettingsTranslation(TranslationOptions):
+    fields = (
+        'meta_title', 'meta_description', 'meta_keywords',
+        'og_title', 'og_description',
+        'twitter_title', 'twitter_description',
+    )

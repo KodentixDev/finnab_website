@@ -4,7 +4,8 @@ from .models import (
     HeroSection, AboutSection, AboutFeature,
     WhyChooseUs, WhyChooseItem, StatCounter,
     WhoWeHelp, WhoWeHelpItem, Service, FAQ,
-    ContactInfo, ContactMessage, NewsletterSubscriber
+    ContactInfo, ContactMessage, NewsletterSubscriber,
+    SEOSettings
 )
 
 
@@ -86,3 +87,29 @@ class ContactMessageAdmin(admin.ModelAdmin):
 class NewsletterSubscriberAdmin(admin.ModelAdmin):
     list_display = ('email', 'subscribed_at')
     readonly_fields = ('subscribed_at',)
+
+
+@admin.register(SEOSettings)
+class SEOSettingsAdmin(TabbedTranslationAdmin):
+    list_display = ('meta_title', 'robots', 'is_active')
+    list_editable = ('is_active',)
+    fieldsets = (
+        ('Meta Məlumatlar', {
+            'fields': ('meta_title', 'meta_description', 'meta_keywords')
+        }),
+        ('Open Graph', {
+            'fields': ('og_title', 'og_description', 'og_image')
+        }),
+        ('Twitter Card', {
+            'fields': ('twitter_card', 'twitter_title', 'twitter_description')
+        }),
+        ('Texniki', {
+            'fields': ('canonical_url', 'robots')
+        }),
+        ('Schema.org', {
+            'fields': ('schema_organization_name', 'schema_phone', 'schema_email', 'schema_address')
+        }),
+        ('Status', {
+            'fields': ('is_active',)
+        }),
+    )

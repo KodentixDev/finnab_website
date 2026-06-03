@@ -9,7 +9,8 @@ logger = logging.getLogger(__name__)
 from .models import (
     HeroSection, AboutSection, WhyChooseUs,
     StatCounter, WhoWeHelp, Service, FAQ,
-    ContactInfo, ContactMessage, NewsletterSubscriber
+    ContactInfo, ContactMessage, NewsletterSubscriber,
+    SEOSettings
 )
 
 
@@ -26,6 +27,7 @@ def index(request):
     services = Service.objects.filter(is_active=True)
     faqs = FAQ.objects.filter(is_active=True)
     contact_info = ContactInfo.objects.filter(is_active=True).first()
+    seo = SEOSettings.objects.filter(is_active=True).first()
 
     context = {
         'hero': hero,
@@ -36,6 +38,7 @@ def index(request):
         'services': services,
         'faqs': faqs,
         'contact_info': contact_info,
+        'seo': seo,
         'LANGUAGE_CODE': current_lang,
     }
     return render(request, 'index.html', context)

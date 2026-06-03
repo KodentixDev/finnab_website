@@ -202,3 +202,39 @@ class NewsletterSubscriber(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class SEOSettings(models.Model):
+    # Ana məlumatlar
+    meta_title = models.CharField(max_length=70, help_text='Maksimum 70 simvol')
+    meta_description = models.TextField(max_length=160, help_text='Maksimum 160 simvol')
+    meta_keywords = models.CharField(max_length=255, blank=True, help_text='Vergüllə ayrılmış açar sözlər')
+
+    # Open Graph (Facebook, LinkedIn)
+    og_title = models.CharField(max_length=70, blank=True)
+    og_description = models.TextField(max_length=200, blank=True)
+    og_image = models.ImageField(upload_to='seo/', blank=True, null=True, help_text='1200x630 px tövsiyə olunur')
+
+    # Twitter Card
+    twitter_title = models.CharField(max_length=70, blank=True)
+    twitter_description = models.TextField(max_length=200, blank=True)
+    twitter_card = models.CharField(max_length=20, default='summary_large_image')
+
+    # Canonical & Robot
+    canonical_url = models.URLField(blank=True, help_text='Məs: https://finnab.az')
+    robots = models.CharField(max_length=50, default='index, follow')
+
+    # Schema.org
+    schema_organization_name = models.CharField(max_length=100, blank=True)
+    schema_phone = models.CharField(max_length=50, blank=True)
+    schema_email = models.EmailField(blank=True)
+    schema_address = models.CharField(max_length=300, blank=True)
+
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = 'SEO Ayarları'
+        verbose_name_plural = 'SEO Ayarları'
+
+    def __str__(self):
+        return self.meta_title or 'SEO Ayarları'
