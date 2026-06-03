@@ -1,0 +1,677 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finnab - {% trans "Ana Səhifə" %}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/slicknav.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+    <link href="{% static 'css/all.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet" media="screen">
+</head>
+
+<body class="tt-magic-cursor">
+
+    <div class="preloader">
+        <div class="loading-container">
+            <div class="loading"></div>
+            <div id="loading-icon"><img src="{% static 'images/loader.svg' %}" alt=""></div>
+        </div>
+    </div>
+
+    <div id="magic-cursor">
+        <div id="ball"><div class="circle"></div></div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="main-header">
+        <div class="header-sticky">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <a class="navbar-brand" href="#home">
+                        <img src="{% static 'images/logo.png' %}" style="max-width: 150px;" alt="Logo">
+                    </a>
+                    <div class="collapse navbar-collapse main-menu">
+                        <div class="nav-menu-wrapper">
+                            <ul class="navbar-nav mr-auto" id="menu">
+                                <li class="nav-item"><a class="nav-link" href="#home">{% trans "Ana Səhifə" %}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#about">{% trans "Haqqımızda" %}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#services">{% trans "Xidmətlər" %}</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#contact">{% trans "Əlaqə" %}</a></li>
+                            </ul>
+                        </div>
+                        <div class="header-btn d-inline-flex">
+                            <form action="{% url 'change_language' %}" method="post" id="lang-form">
+                                {% csrf_token %}
+                                <input name="next" type="hidden" value="/">
+                                <select class="language-select" name="language" aria-label="Language"
+                                    onchange="document.getElementById('lang-form').submit()">
+                                    <option value="az" {% if request.LANGUAGE_CODE == 'az' or LANGUAGE_CODE == 'az' %}selected{% endif %}>az</option>
+                                    <option value="en" {% if request.LANGUAGE_CODE == 'en' or LANGUAGE_CODE == 'en' %}selected{% endif %}>en</option>
+                                    <option value="ru" {% if request.LANGUAGE_CODE == 'ru' or LANGUAGE_CODE == 'ru' %}selected{% endif %}>ru</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="navbar-toggle"></div>
+                </div>
+            </nav>
+            <div class="responsive-menu"></div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="home" class="hero light-bg-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        {% if hero %}
+                        <div class="google-rating wow fadeInUp">
+                            <ul>
+                                <li>{% trans "Google Reytinq" %} <span>{{ hero.google_rating }}</span></li>
+                                <li>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </li>
+                                <li>{{ hero.review_count }} {% trans "rəyə əsasən" %}</li>
+                            </ul>
+                        </div>
+                        <div class="section-title">
+                            <h1 class="text-anime-style-3">{{ hero.title }}</h1>
+                        </div>
+                        <div class="hero-content-body wow fadeInUp" data-wow-delay="0.5s">
+                            <p>{{ hero.description }}</p>
+                        </div>
+                        <div class="hero-content-footer wow fadeInUp" data-wow-delay="0.75s">
+                            <a href="#contact" class="btn-default">{{ hero.primary_btn_text }}</a>
+                            <a href="#services" class="btn-default btn-highlighted">{{ hero.secondary_btn_text }}</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-image">
+                        <figure>
+                            {% if hero and hero.hero_image %}
+                                <img src="{{ hero.hero_image.url }}" alt="">
+                            {% else %}
+                                <img src="{% static 'images/hero-img.png' %}" alt="">
+                            {% endif %}
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    {% if about %}
+    <section id="about" class="page-about">
+        <div class="container">
+            <div class="row section-row align-items-center">
+                <div class="col-lg-6">
+                    <div class="section-title">
+                        <h3 class="wow fadeInUp">{{ about.subtitle }}</h3>
+                        <h2 class="text-anime-style-3">{{ about.title }}</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="section-title-content wow fadeInUp" data-wow-delay="0.25s">
+                        <p>{{ about.description }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="page-about-image">
+                        {% if about.image1 %}
+                        <div class="about-img-1">
+                            <figure class="image-anime reveal">
+                                <img src="{{ about.image1.url }}" alt="">
+                            </figure>
+                        </div>
+                        {% endif %}
+                        {% if about.image2 %}
+                        <div class="about-img-2">
+                            <figure class="image-anime reveal">
+                                <img src="{{ about.image2.url }}" alt="">
+                            </figure>
+                        </div>
+                        {% endif %}
+                        <div class="satisfied-client">
+                            <div class="satisfied-client-icon">
+                                <img src="{% static 'images/icon-satisfied-client.svg' %}" alt="">
+                            </div>
+                            <div class="satisfied-client-content">
+                                <h3><span class="counter">{{ about.satisfied_client_count }}</span>+</h3>
+                                <p>{% trans "məmnun müştəri" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="about-content">
+                        <div class="about-content-footer">
+                            {% for feature in about.features.all %}
+                            <div class="about-company-service wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
+                                <div class="icon-box">
+                                    {% if feature.icon %}<img src="{{ feature.icon.url }}" alt="">{% endif %}
+                                </div>
+                                <div class="company-service-content">
+                                    <h3>{{ feature.title }}</h3>
+                                    <p>{{ feature.description }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if why_choose %}
+            <div class="row section-row align-items-center" style="margin-top: 60px;">
+                <div class="col-lg-6">
+                    <div class="section-title">
+                        <h3 class="wow fadeInUp">{{ why_choose.subtitle }}</h3>
+                        <h2 class="text-anime-style-3">{{ why_choose.title }}</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="section-title-content wow fadeInUp" data-wow-delay="0.25s">
+                        <p>{{ why_choose.description }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for item in why_choose.items.all %}
+                <div class="col-lg-4">
+                    <div class="why-choose-item wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
+                        <div class="icon-box">
+                            {% if item.icon %}<img src="{{ item.icon.url }}" alt="">{% endif %}
+                        </div>
+                        <div class="why-choose-body">
+                            <h3>{{ item.title }}</h3>
+                            <p>{{ item.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if stat_counters %}
+            <div class="row align-items-center" style="margin-top: 60px;">
+                <div class="col-lg-5">
+                    <div class="section-title">
+                        <h3 class="wow fadeInUp">{% trans "nailiyyətlərimiz" %}</h3>
+                        <h2 class="text-anime-style-3">{% trans "Vergi qanunları və maliyyə trendləri haqqında sizi məlumatlandırırıq" %}</h2>
+                    </div>
+                    <div class="counter-contact-btn wow fadeInUp" data-wow-delay="0.25s">
+                        <a href="#contact" class="btn-default">{% trans "bizimlə əlaqə" %}</a>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="state-image-counter-1">
+                        {% for counter in stat_counters %}
+                        {% if counter.image %}
+                        <div class="counter-box counter-image wow fadeInUp">
+                            <figure class="image-anime">
+                                <img src="{{ counter.image.url }}" alt="">
+                            </figure>
+                        </div>
+                        {% else %}
+                        <div class="counter-box wow fadeInUp">
+                            <div class="counter-content">
+                                <h3><span class="counter">{{ counter.value }}</span>+</h3>
+                                <p>{{ counter.label }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- WHO WE HELP -->
+    {% if who_we_help %}
+    <div class="we-help light-bg-section">
+        <div class="container">
+            <div class="row section-row align-items-center">
+                <div class="col-lg-6">
+                    <div class="section-title">
+                        <h3 class="wow fadeInUp">{{ who_we_help.subtitle }}</h3>
+                        <h2 class="text-anime-style-3">{{ who_we_help.title }}</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="section-title-content wow fadeInUp" data-wow-delay="0.25s">
+                        <p>{{ who_we_help.description }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="we-help-content">
+                    {% for item in who_we_help.items.all %}
+                    <div class="we-help-box wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
+                        <div class="icon-box">
+                            {% if item.icon %}<img src="{{ item.icon.url }}" alt="">{% endif %}
+                        </div>
+                        <div class="we-help-title">
+                            <h3>{{ item.title }}</h3>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- SERVICES -->
+    <section id="services" class="page-services">
+        <div class="container">
+            <div class="row section-row align-items-center">
+                <div class="col-lg-6">
+                    <div class="section-title">
+                        <h3 class="wow fadeInUp">{% trans "xidmətlərimiz" %}</h3>
+                        <h2 class="text-anime-style-3">{% trans "Xidmətlər" %}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for service in services %}
+                <div class="col-md-4">
+                    <div class="service-item wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
+                        <div class="service-image">
+                            <figure class="image-anime">
+                                <img src="{{ service.image.url }}" alt="{{ service.title }}">
+                            </figure>
+                        </div>
+                        <div class="service-content">
+                            <h3>{{ service.title }}</h3>
+                            <div class="service-readmore-btn">
+                                <button class="btn-default service-modal-btn"
+                                    data-img="{{ service.image.url }}"
+                                    data-title="{{ service.title }}"
+                                    data-desc="{{ service.description }}">
+                                    {% trans "ətraflı oxu" %}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12"><p>{% trans "Hələlik xidmət əlavə edilməyib." %}</p></div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE MODAL -->
+    <div id="serviceModal" class="service-modal-overlay" style="display:none;">
+        <div class="service-modal-box">
+            <button class="service-modal-close" id="serviceModalClose">&times;</button>
+            <div class="service-modal-inner">
+                <div class="service-modal-img">
+                    <img id="serviceModalImg" src="" alt="">
+                </div>
+                <div class="service-modal-content">
+                    <h2 id="serviceModalTitle"></h2>
+                    <p id="serviceModalDesc"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-box">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="section-title">
+                        <h2 class="text-anime-style-3">{% trans "Biznesiniz üçün premium mühasibat xidməti axtarırsınız?" %}</h2>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="section-btn wow fadeInUp" data-wow-delay="0.25s">
+                        <a href="#contact" class="btn-default btn-highlighted btn-large">{% trans "başlamaq üçün əlaqə saxla" %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ -->
+    <section id="faq" class="page-faqs light-bg-section">
+        <div class="container">
+            <div class="row section-row align-items-center">
+                <div class="col-lg-6">
+                    <div class="section-title">
+                        <h3 class="wow fadeInUp">{% trans "tez-tez verilən suallar" %}</h3>
+                        <h2 class="text-anime-style-3">{% trans "Suallar və Cavablar" %}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="faq-section">
+                        <div class="faq-accordion">
+                            <div class="accordion" id="faq_accordion">
+                                {% for faq in faqs %}
+                                <div class="accordion-item wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
+                                    <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                                        <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}"
+                                            type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse{{ forloop.counter }}"
+                                            aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                                            aria-controls="collapse{{ forloop.counter }}">
+                                            {{ faq.question }}
+                                        </button>
+                                    </h2>
+                                    <div id="collapse{{ forloop.counter }}"
+                                        class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                                        aria-labelledby="heading{{ forloop.counter }}"
+                                        data-bs-parent="#faq_accordion">
+                                        <div class="accordion-body">
+                                            <p>{{ faq.answer }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% empty %}
+                                <p>{% trans "Hələlik sual əlavə edilməyib." %}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="contact-information">
+            <div class="container">
+                <div class="row section-row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="section-title">
+                            <h3 class="wow fadeInUp">{% trans "bizimlə əlaqə" %}</h3>
+                            <h2 class="text-anime-style-3">{% trans "Əlaqə saxlayın" %}</h2>
+                        </div>
+                    </div>
+                </div>
+                {% if contact_info %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contact-info-item wow fadeInUp" data-wow-delay="0.25s">
+                            <div class="contact-image">
+                                <figure class="image-anime">
+                                    <img src="{% static 'images/location-img.jpg' %}" alt="">
+                                </figure>
+                            </div>
+                            <div class="contact-info-box">
+                                <div class="icon-box">
+                                    <img src="{% static 'images/icon-location.svg' %}" alt="">
+                                </div>
+                                <div class="contact-info-content">
+                                    <p>{{ contact_info.address }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contact-info-item wow fadeInUp" data-wow-delay="0.5s">
+                            <div class="contact-image">
+                                <figure class="image-anime">
+                                    <img src="{% static 'images/email-img.jpg' %}" alt="">
+                                </figure>
+                            </div>
+                            <div class="contact-info-box">
+                                <div class="icon-box">
+                                    <img src="{% static 'images/icon-email.svg' %}" alt="">
+                                </div>
+                                <div class="contact-info-content">
+                                    <p><a href="mailto:{{ contact_info.email1 }}">{{ contact_info.email1 }}</a></p>
+                                    {% if contact_info.email2 %}
+                                    <p><a href="mailto:{{ contact_info.email2 }}">{{ contact_info.email2 }}</a></p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contact-info-item wow fadeInUp" data-wow-delay="0.75s">
+                            <div class="contact-image">
+                                <figure class="image-anime">
+                                    <img src="{% static 'images/phone-img.jpg' %}" alt="">
+                                </figure>
+                            </div>
+                            <div class="contact-info-box">
+                                <div class="icon-box">
+                                    <img src="{% static 'images/icon-phone.svg' %}" alt="">
+                                </div>
+                                <div class="contact-info-content">
+                                    <p><a href="tel:{{ contact_info.phone1 }}">{{ contact_info.phone1 }}</a></p>
+                                    {% if contact_info.phone2 %}
+                                    <p><a href="tel:{{ contact_info.phone2 }}">{{ contact_info.phone2 }}</a></p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="contact-us light-bg-section">
+            <div class="container">
+                <div class="row section-row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="section-title">
+                            <h3 class="wow fadeInUp">{% trans "mesaj göndərin" %}</h3>
+                            <h2 class="text-anime-style-3">{% trans "Kömək lazımdır? Bizimlə əlaqə saxlayın" %}</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="section-title-content wow fadeInUp" data-wow-delay="0.25s">
+                            <p>{% trans "Suallarınız, təklifləriniz və ya əməkdaşlıq üçün aşağıdakı formu doldurun. Qısa müddət ərzində sizinlə əlaqə saxlayacağıq." %}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {% if messages %}
+                <div class="row">
+                    <div class="col-12">
+                        {% for message in messages %}
+                        <div class="alert alert-success">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="contact-form wow fadeInUp" data-wow-delay="0.25s">
+                            <form id="contactForm" action="{% url 'contact_submit' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="form-group col-md-6 mb-4">
+                                        <input type="text" name="fname" class="form-control" placeholder="{% trans 'ad' %}" required>
+                                    </div>
+                                    <div class="form-group col-md-6 mb-4">
+                                        <input type="text" name="lname" class="form-control" placeholder="{% trans 'soyad' %}" required>
+                                    </div>
+                                    <div class="form-group col-md-6 mb-4">
+                                        <input type="email" name="email" class="form-control" placeholder="{% trans 'e-poçt' %}" required>
+                                    </div>
+                                    <div class="form-group col-md-6 mb-4">
+                                        <input type="text" name="phone" class="form-control" placeholder="{% trans 'telefon' %}" required>
+                                    </div>
+                                    <div class="form-group col-md-12 mb-4">
+                                        <textarea name="msg" class="form-control" rows="7" placeholder="{% trans 'mesajınızı yazın' %}" required></textarea>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn-default">{% trans "göndər" %}</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if contact_info and contact_info.map_embed_url %}
+        <div class="location-map">
+            <div class="container">
+                <div class="row section-row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="section-title">
+                            <h3 class="wow fadeInUp">{% trans "ünvanımız" %}</h3>
+                            <h2 class="text-anime-style-3">{% trans "Ünvanımıza necə çatmaq olar" %}</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="section-title-content wow fadeInUp" data-wow-delay="0.25s">
+                            <p>{% trans "Ofisimizə şəxsən gəlmək istəyirsinizsə, aşağıdakı xəritədən istifadə edərək ünvanımızı tapa bilərsiniz." %}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="google-map">
+                            <iframe src="{{ contact_info.map_embed_url }}"
+                                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer-body">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="footer-logo-wrap">
+                                    <img src="{% static 'images/logo.png' %}" alt="Logo">
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="row">
+                                    <div class="col-md-4 col-6">
+                                        <div class="footer-links">
+                                            <h2>{% trans "sürətli keçidlər" %}</h2>
+                                            <ul>
+                                                <li><a href="#home">{% trans "Ana Səhifə" %}</a></li>
+                                                <li><a href="#about">{% trans "Haqqımızda" %}</a></li>
+                                                <li><a href="#services">{% trans "Xidmətlər" %}</a></li>
+                                                <li><a href="#contact">{% trans "Əlaqə" %}</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-6">
+                                        <div class="footer-links">
+                                            <h2>{% trans "Sosial Şəbəkələr" %}</h2>
+                                            <ul>
+                                                <li><a href="#">instagram</a></li>
+                                                <li><a href="#">facebook</a></li>
+                                                <li><a href="#">twitter</a></li>
+                                                <li><a href="#">linkedin</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="footer-contact">
+                                            <h2>{% trans "salam deyin" %}</h2>
+                                            <ul>
+                                                {% if contact_info %}
+                                                <li><a href="mailto:{{ contact_info.email1 }}">{{ contact_info.email1 }}</a></li>
+                                                <li><a href="tel:{{ contact_info.phone1 }}">{{ contact_info.phone1 }}</a></li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-copyright">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12">
+                                <div class="footer-copyright-text">
+                                    <p>copyright &copy; {% now "Y" %} Finnab. {% trans "Bütün hüquqlar qorunur." %}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/validator.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/SmoothScroll.js' %}"></script>
+    <script src="{% static 'js/gsap.min.js' %}"></script>
+    <script src="{% static 'js/magiccursor.js' %}"></script>
+    <script src="{% static 'js/SplitText.js' %}"></script>
+    <script src="{% static 'js/ScrollTrigger.min.js' %}"></script>
+    <script src="{% static 'js/wow.js' %}"></script>
+    <script src="{% static 'js/function.js' %}"></script>
+
+    <script>
+        var modal = document.getElementById('serviceModal');
+        document.querySelectorAll('.service-modal-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                document.getElementById('serviceModalImg').src = this.dataset.img;
+                document.getElementById('serviceModalTitle').textContent = this.dataset.title;
+                document.getElementById('serviceModalDesc').textContent = this.dataset.desc;
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        document.getElementById('serviceModalClose').addEventListener('click', closeModal);
+        modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>

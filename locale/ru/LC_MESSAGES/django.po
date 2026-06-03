@@ -1,0 +1,123 @@
+# Russian translations for Finnab
+msgid ""
+msgstr ""
+"Project-Id-Version: Finnab 1.0\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "Azərbaycan"
+msgstr "Азербайджанский"
+
+msgid "English"
+msgstr "Английский"
+
+msgid "Русский"
+msgstr "Русский"
+
+msgid "Ana Səhifə"
+msgstr "Главная"
+
+msgid "Haqqımızda"
+msgstr "О нас"
+
+msgid "Xidmətlər"
+msgstr "Услуги"
+
+msgid "Əlaqə"
+msgstr "Контакты"
+
+msgid "Google Reytinq"
+msgstr "Рейтинг Google"
+
+msgid "rəyə əsasən"
+msgstr "на основе отзывов"
+
+msgid "məmnun müştəri"
+msgstr "довольных клиентов"
+
+msgid "nailiyyətlərimiz"
+msgstr "наши достижения"
+
+msgid "Vergi qanunları və maliyyə trendləri haqqında sizi məlumatlandırırıq"
+msgstr "Информируем вас о налоговом законодательстве и финансовых тенденциях"
+
+msgid "bizimlə əlaqə"
+msgstr "связаться с нами"
+
+msgid "xidmətlərimiz"
+msgstr "наши услуги"
+
+msgid "ətraflı oxu"
+msgstr "подробнее"
+
+msgid "Hələlik xidmət əlavə edilməyib."
+msgstr "Услуги пока не добавлены."
+
+msgid "Biznesiniz üçün premium mühasibat xidməti axtarırsınız?"
+msgstr "Ищете премиальные бухгалтерские услуги для вашего бизнеса?"
+
+msgid "başlamaq üçün əlaqə saxla"
+msgstr "начать работу"
+
+msgid "tez-tez verilən suallar"
+msgstr "часто задаваемые вопросы"
+
+msgid "Suallar və Cavablar"
+msgstr "Вопросы и ответы"
+
+msgid "Hələlik sual əlavə edilməyib."
+msgstr "Вопросы пока не добавлены."
+
+msgid "Əlaqə saxlayın"
+msgstr "Свяжитесь с нами"
+
+msgid "mesaj göndərin"
+msgstr "отправить сообщение"
+
+msgid "Kömək lazımdır? Bizimlə əlaqə saxlayın"
+msgstr "Нужна помощь? Свяжитесь с нами"
+
+msgid "Suallarınız, təklifləriniz və ya əməkdaşlıq üçün aşağıdakı formu doldurun. Qısa müddət ərzində sizinlə əlaqə saxlayacağıq."
+msgstr "Заполните форму ниже по вопросам, предложениям или сотрудничеству. Мы свяжемся с вами в ближайшее время."
+
+msgid "ad"
+msgstr "имя"
+
+msgid "soyad"
+msgstr "фамилия"
+
+msgid "e-poçt"
+msgstr "эл. почта"
+
+msgid "telefon"
+msgstr "телефон"
+
+msgid "mesajınızı yazın"
+msgstr "напишите сообщение"
+
+msgid "göndər"
+msgstr "отправить"
+
+msgid "ünvanımız"
+msgstr "наш адрес"
+
+msgid "Ünvanımıza necə çatmaq olar"
+msgstr "Как добраться до нас"
+
+msgid "Ofisimizə şəxsən gəlmək istəyirsinizsə, aşağıdakı xəritədən istifadə edərək ünvanımızı tapa bilərsiniz."
+msgstr "Если вы хотите посетить наш офис лично, вы можете найти наш адрес на карте ниже."
+
+msgid "sürətli keçidlər"
+msgstr "быстрые ссылки"
+
+msgid "Sosial Şəbəkələr"
+msgstr "Социальные сети"
+
+msgid "salam deyin"
+msgstr "напишите нам"
+
+msgid "Bütün hüquqlar qorunur."
+msgstr "Все права защищены."

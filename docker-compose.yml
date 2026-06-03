@@ -1,0 +1,55 @@
+version: "3.11"
+
+services:
+
+  db:
+    image: postgres:16-alpine
+    container_name: finnab_db
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - finnab_postgres_data:/var/lib/postgresql/data
+    networks:
+      - finnab_internal
+      - proxy_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    container_name: finnab_web
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - DB_HOST=db
+    volumes:
+      - finnab_media:/app/media
+      - finnab_static:/app/staticfiles
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - finnab_internal
+      - proxy_network
+    command: >
+      sh -c "python manage.py migrate --noinput &&
+             python manage.py compilemessages &&
+             gunicorn finnab.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+
+volumes:
+  finnab_postgres_data:
+  finnab_media:
+  finnab_static:
+
+networks:
+  finnab_internal:
+    driver: bridge
+  proxy_network:
+    external: true

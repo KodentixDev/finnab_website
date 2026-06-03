@@ -1,0 +1,161 @@
+# English translations for Finnab
+msgid ""
+msgstr ""
+"Project-Id-Version: Finnab 1.0\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: finnab/settings.py:97
+msgid "Azərbaycan"
+msgstr "Azerbaijani"
+
+#: finnab/settings.py:98
+msgid "English"
+msgstr "English"
+
+#: finnab/settings.py:99
+msgid "Русский"
+msgstr "Russian"
+
+#: templates/index.html:9 templates/index.html:47 templates/index.html:594
+msgid "Ana Səhifə"
+msgstr "Home"
+
+#: templates/index.html:48 templates/index.html:595
+msgid "Haqqımızda"
+msgstr "About Us"
+
+#: templates/index.html:49 templates/index.html:299 templates/index.html:596
+msgid "Xidmətlər"
+msgstr "Services"
+
+#: templates/index.html:51 templates/index.html:597
+msgid "Əlaqə"
+msgstr "Contact"
+
+#: templates/index.html:83
+msgid "Google Reytinq"
+msgstr "Google Rating"
+
+#: templates/index.html:91
+msgid "rəyə əsasən"
+msgstr "based on reviews"
+
+#: templates/index.html:163
+msgid "məmnun müştəri"
+msgstr "satisfied clients"
+
+#: templates/index.html:223
+msgid "nailiyyətlərimiz"
+msgstr "our achievements"
+
+#: templates/index.html:224
+msgid "Vergi qanunları və maliyyə trendləri haqqında sizi məlumatlandırırıq"
+msgstr "Keeping you informed on tax laws and financial trends"
+
+#: templates/index.html:227 templates/index.html:420
+msgid "bizimlə əlaqə"
+msgstr "contact us"
+
+#: templates/index.html:298
+msgid "xidmətlərimiz"
+msgstr "our services"
+
+#: templates/index.html:319
+msgid "ətraflı oxu"
+msgstr "read more"
+
+#: templates/index.html:326
+msgid "Hələlik xidmət əlavə edilməyib."
+msgstr "No services added yet."
+
+#: templates/index.html:354
+msgid "Biznesiniz üçün premium mühasibat xidməti axtarırsınız?"
+msgstr "Looking for premium accounting services for your business?"
+
+#: templates/index.html:359
+msgid "başlamaq üçün əlaqə saxla"
+msgstr "get started"
+
+#: templates/index.html:372
+msgid "tez-tez verilən suallar"
+msgstr "frequently asked questions"
+
+#: templates/index.html:373
+msgid "Suallar və Cavablar"
+msgstr "FAQ"
+
+#: templates/index.html:403
+msgid "Hələlik sual əlavə edilməyib."
+msgstr "No questions added yet."
+
+#: templates/index.html:421
+msgid "Əlaqə saxlayın"
+msgstr "Get in Touch"
+
+#: templates/index.html:494
+msgid "mesaj göndərin"
+msgstr "send a message"
+
+#: templates/index.html:495
+msgid "Kömək lazımdır? Bizimlə əlaqə saxlayın"
+msgstr "Need help? Let's get in touch"
+
+#: templates/index.html:500
+msgid "Suallarınız, təklifləriniz və ya əməkdaşlıq üçün aşağıdakı formu doldurun. Qısa müddət ərzində sizinlə əlaqə saxlayacağıq."
+msgstr "Fill out the form below for your questions, suggestions or collaboration. We will get back to you shortly."
+
+#: templates/index.html:522
+msgid "ad"
+msgstr "first name"
+
+#: templates/index.html:525
+msgid "soyad"
+msgstr "last name"
+
+#: templates/index.html:528
+msgid "e-poçt"
+msgstr "email"
+
+#: templates/index.html:531
+msgid "telefon"
+msgstr "phone"
+
+#: templates/index.html:534
+msgid "mesajınızı yazın"
+msgstr "write a message"
+
+#: templates/index.html:537
+msgid "göndər"
+msgstr "submit"
+
+#: templates/index.html:553
+msgid "ünvanımız"
+msgstr "our location"
+
+#: templates/index.html:554
+msgid "Ünvanımıza necə çatmaq olar"
+msgstr "How to reach our location"
+
+#: templates/index.html:559
+msgid "Ofisimizə şəxsən gəlmək istəyirsinizsə, aşağıdakı xəritədən istifadə edərək ünvanımızı tapa bilərsiniz."
+msgstr "If you would like to visit our office in person, you can find our address using the map below."
+
+#: templates/index.html:592
+msgid "sürətli keçidlər"
+msgstr "quick links"
+
+#: templates/index.html:603
+msgid "Sosial Şəbəkələr"
+msgstr "Socials"
+
+#: templates/index.html:614
+msgid "salam deyin"
+msgstr "say hello"
+
+#: templates/index.html:631
+msgid "Bütün hüquqlar qorunur."
+msgstr "All rights reserved."
