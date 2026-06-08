@@ -1,42 +1,3 @@
-/* ----------------------------------------------------------------------------------------
-* Author        : Awaiken
-* Template Name : Finnab - Accounting & Finance HTML Template
-* File          : CSS File
-* Version       : 1.0
-* ---------------------------------------------------------------------------------------- */
-/* INDEX
-----------------------------------------------------------------------------------------
-01. Global Variables
-02. General css
-03. Header css
-04. Hero css
-05. About Us css
-06. Our Services css
-07. State Counter css
-08. Why Choose Us css
-09. Our Employee css
-10. Cta Box css
-11. We Help css
-12. Our Pricing css
-13. Testimonials css
-14. Our Blog css
-15. Footer css
-16. About us Page css
-17. Services Page css
-18. Service Single css
-19. Blog Archive css
-20. Blog Single css
-21. Contact us Page css
-22. Pricing Page css
-23.	FAQs Page css
-24. 404 Page css
-25. Responsive css
--------------------------------------------------------------------------------------- */
-
-/************************************/
-/*** 	 01. Global Variables	  ***/
-/************************************/	
-
 :root{
 	--primary-color		: #0C1524;
 	--secondary-color	: #F5F7FA;
@@ -3058,7 +3019,7 @@ header.main-header{
 @media only screen and (max-width: 1600px){
 	.light-bg-section{
 		width: calc(100% - 100px);
-		margin: 0 50px;
+		margin: 50px;
 	}
 
 	.main-footer{
@@ -4204,7 +4165,7 @@ header.main-header{
 /* ===== FOOTER LOGO ===== */
 .footer-logo-wrap {
     display: inline-block;
-    background: #fff;
+    /* background: #fff; */
     border-radius: 14px;
     padding: 16px 28px;
 }
