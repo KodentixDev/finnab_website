@@ -159,52 +159,57 @@
 		});		
 	}
 
-	/* Contact form validation */
+	/* Contact form */
 	var $contactform = $("#contactForm");
-	$contactform.validator({focus: false}).on("submit", function (event) {
-		if (!event.isDefaultPrevented()) {
-			event.preventDefault();
-			submitForm();
-		}
-	});
-
-	function submitForm(){
-		/* Initiate Variables With Form Content*/
-		var fname = $("#fname").val();
-		var lname = $("#lname").val();
-		var email = $("#email").val();
-		var phone = $("#phone").val();
-		var subject = $("#subject").val();
-		var message = $("#msg").val();
+	$contactform.on("submit", function (event) {
+		event.preventDefault();
+		var form = $(this);
+		var submitBtn = form.find('button[type="submit"]');
+		submitBtn.prop('disabled', true);
 
 		$.ajax({
 			type: "POST",
-			url: "form-process.php",
-			data: "fname=" + fname + "&lname=" + lname + "&email=" + email + "&phone=" + phone + "&subject=" + subject + "&message=" + message,
-			success : function(text){
-				if (text == "success"){
-					formSuccess();
-				} else {
-					submitMSG(false,text);
+			url: $contactform.attr("action"),
+			data: $contactform.serialize(),
+			headers: { "X-Requested-With": "XMLHttpRequest" },
+			success: function (res) {
+				if (res.status === "ok") {
+					form[0].reset();
+					Toastify({
+						text: res.message,
+						duration: 4000,
+						gravity: "top",
+						position: "right",
+						style: {
+							background: "linear-gradient(135deg, #1a6b3c, #2d9e5f)",
+							borderRadius: "8px",
+							fontSize: "15px",
+							padding: "14px 20px",
+						},
+						stopOnFocus: true,
+					}).showToast();
 				}
+			},
+			error: function () {
+				Toastify({
+					text: "Xəta baş verdi. Yenidən cəhd edin.",
+					duration: 4000,
+					gravity: "top",
+					position: "right",
+					style: {
+						background: "linear-gradient(135deg, #c0392b, #e74c3c)",
+						borderRadius: "8px",
+						fontSize: "15px",
+						padding: "14px 20px",
+					},
+				}).showToast();
+			},
+			complete: function () {
+				submitBtn.prop('disabled', false);
 			}
 		});
-	}
-
-	function formSuccess(){
-		$contactform[0].reset();
-		submitMSG(true, "Message Sent Successfully!")
-	}
-
-	function submitMSG(valid, msg){
-		if(valid){
-			var msgClasses = "h3 text-success";
-		} else {
-			var msgClasses = "h3 text-danger";
-		}
-		$("#msgSubmit").removeClass().addClass(msgClasses).text(msg);
-	}
-	/* Contact form validation end */
+	});
+	/* Contact form end */
 
 
 	/* Animated Wow Js */	

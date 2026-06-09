@@ -114,6 +114,7 @@
     <link href="{% static 'css/animate.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
     <link href="{% static 'css/custom.css' %}" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
 <body class="tt-magic-cursor">
@@ -598,15 +599,6 @@
                     </div>
                 </div>
 
-                {% if messages %}
-                <div class="row">
-                    <div class="col-12">
-                        {% for message in messages %}
-                        <div class="alert alert-success">{{ message }}</div>
-                        {% endfor %}
-                    </div>
-                </div>
-                {% endif %}
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -769,5 +761,6 @@
             document.body.style.overflow = '';
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 </html>

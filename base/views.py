@@ -77,7 +77,13 @@ def contact_submit(request):
             message=request.POST.get('msg', ''),
         )
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-            return JsonResponse({'status': 'ok'})
+            lang = request.COOKIES.get(settings.LANGUAGE_COOKIE_NAME, 'az')
+            success_messages = {
+                'az': 'Mesajınız uğurla göndərildi!',
+                'en': 'Your message was sent successfully!',
+                'ru': 'Ваше сообщение успешно отправлено!',
+            }
+            return JsonResponse({'status': 'ok', 'message': success_messages.get(lang, success_messages['az'])})
         messages.success(request, 'Mesajınız göndərildi. Tezliklə sizinlə əlaqə saxlayacağıq.')
         return redirect('home')
     return redirect('home')
